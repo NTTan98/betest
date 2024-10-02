@@ -62,6 +62,20 @@ app.post('/delete', (req, res) => {
     }
 });
 
+// Route to get the list of uploaded images
+app.get('/images-list', (req, res) => {
+    const imageDir = path.join(__dirname, 'images');
+    
+    fs.readdir(imageDir, (err, files) => {
+        if (err) {
+            return res.json({ success: false, message: 'Unable to scan images directory' });
+        }
+        
+        const images = files.filter(file => ['.jpg', '.jpeg', '.png', '.gif'].includes(path.extname(file).toLowerCase()));
+        res.json({ success: true, images });
+    });
+});
+
 // Serve the HTML page
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
