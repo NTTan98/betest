@@ -31,114 +31,58 @@
         }
     </style>
     <script>
-        // Function to upload image via AJAX
-        function uploadImage(event) {
-            event.preventDefault();
-            var formData = new FormData(document.getElementById("uploadForm"));
-            formData.append("newName", document.getElementById("newName").value);
+        // // Function to display image in the UI
+        // // Function to display image in the UI
+        // function displayImage(imagePath, fileName) {
+        //     var uploadedImagesDiv = document.getElementById("uploadedImages");
+        //     var imgContainer = document.createElement("div");
+        //     imgContainer.classList.add("image-container");
 
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "/upload", true);
-            xhr.onload = function () {
-                if (xhr.status === 200) {
-                    var response = JSON.parse(xhr.responseText);
-                    if (response.success) {
-                        displayImage(response.imagePath, response.fileName);
-                    } else {
-                        alert("Failed to upload image: " + response.message);
-                    }
-                } else {
-                    alert("Error uploading image.");
-                }
-            };
-            xhr.onerror = function () {
-                alert("Request failed.");
-            };
-            xhr.send(formData);
-        }
-        
-        // Function to delete image
-        function deleteImage(fileName, imgContainer) {
-        if (confirm('Are you sure you want to delete this image?')) {
-                var xhr = new XMLHttpRequest();
-                xhr.open("POST", "/delete", true);
-                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                
+        //     var img = document.createElement("img");
+        //     img.src = imagePath;
+        //     img.classList.add("thumbnail");
+        //     img.alt = fileName;
 
-                xhr.onload = function () {
-                    if (xhr.status === 200) {
-                        var response = JSON.parse(xhr.responseText);
-                        if (response.success) {
-                            imgContainer.remove();
-                            alert(response.message);
-                        } else {
-                            alert("Error deleting image: " + response.message);
-                        }
-                    } else {
-                        alert("Error deleting image.");
-                    }
-                };
+        //     var imgName = document.createElement("p");
+        //     imgName.textContent = fileName;
 
-                // Properly send the fileName in URL-encoded format
-                var params = "fileName=" + encodeURIComponent(fileName);
-                xhr.send(params);
-            }
-        }
+        //     imgContainer.appendChild(img);
+        //     imgContainer.appendChild(imgName);
 
+        //     var deleteButton = document.createElement("button");
+        //     deleteButton.textContent = "Delete";
+        //     deleteButton.onclick = function() {
+        //         deleteImage(fileName, imgContainer);
+        //     };
 
+        //     imgContainer.appendChild(deleteButton);
 
-        // Function to display image in the UI
-        // Function to display image in the UI
-        function displayImage(imagePath, fileName) {
-            var uploadedImagesDiv = document.getElementById("uploadedImages");
-            var imgContainer = document.createElement("div");
-            imgContainer.classList.add("image-container");
-
-            var img = document.createElement("img");
-            img.src = imagePath;
-            img.classList.add("thumbnail");
-            img.alt = fileName;
-
-            var imgName = document.createElement("p");
-            imgName.textContent = fileName;
-
-            imgContainer.appendChild(img);
-            imgContainer.appendChild(imgName);
-
-            var deleteButton = document.createElement("button");
-            deleteButton.textContent = "Delete";
-            deleteButton.onclick = function() {
-                deleteImage(fileName, imgContainer);
-            };
-
-            imgContainer.appendChild(deleteButton);
-
-            uploadedImagesDiv.appendChild(imgContainer);
-        }
+        //     uploadedImagesDiv.appendChild(imgContainer);
+        // }
 
         // Function to load existing images from the server
-        function loadImages() {
-            var xhr = new XMLHttpRequest();
-            xhr.open("GET", "/images-list", true);
-            xhr.onload = function () {
-                if (xhr.status === 200) {
-                    var response = JSON.parse(xhr.responseText);
-                    if (response.success) {
-                        response.images.forEach(function (image) {
-                            displayImage("/images/" + image, image);
-                        });
-                    } else {
-                        alert("Error loading images: " + response.message);
-                    }
-                } else {
-                    alert("Error fetching images.");
-                }
-            };
-            xhr.send();
-        }
+        // function loadImages() {
+        //     var xhr = new XMLHttpRequest();
+        //     xhr.open("GET", "/images-list", true);
+        //     xhr.onload = function () {
+        //         if (xhr.status === 200) {
+        //             var response = JSON.parse(xhr.responseText);
+        //             if (response.success) {
+        //                 response.images.forEach(function (image) {
+        //                     displayImage("/images/" + image, image);
+        //                 });
+        //             } else {
+        //                 alert("Error loading images: " + response.message);
+        //             }
+        //         } else {
+        //             alert("Error fetching images.");
+        //         }
+        //     };
+        //     xhr.send();
+        // }
 
         // Load images when the page is loaded
-        window.onload = loadImages;
+        // window.onload = loadImages;
     </script>
 </head>
 <body>
