@@ -4,9 +4,17 @@ const fs = require('fs');
 const path = require('path');
 const bodyParser = require('body-parser');
 require('dotenv').config(); // Load environment variables
+const cors = require('cors');  // Import cors
 
 const app = express();
-const port = 3000;
+const port = 4000;
+
+// Use CORS middleware for all routes
+app.use(cors({
+    origin: '*',  // Allow all origins (for development/testing only)
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+}));
 
 // Middleware to parse form data
 app.use(express.urlencoded({ extended: true }));
